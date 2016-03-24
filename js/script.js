@@ -143,8 +143,16 @@ var map3 = L.map('map3', {
   scrollWheelZoom: true
 }).setView( [55.924586,9.228516], 3);
 
-// clean background already loaded
-tile2.addTo(map3);
+//clean background
+var tile3 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+      id: 'mapbox.light'
+    });
+
+tile3.addTo(map3);
 
 function brewer3(d) {
     return d > .005  ? '#0000cc' :
