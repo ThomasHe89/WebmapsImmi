@@ -16,7 +16,7 @@ var map2 = L.map('map2', {
   scrollWheelZoom: true
 }).setView( [55.924586,9.228516], 3);
 
-// instead: cleaner background
+//clean background
 var tile2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
       maxZoom: 18,
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -50,9 +50,7 @@ function style2(feature) {
   };
 }
 
-
-
-// control that shows state info on hover
+//control that shows state info on hover
 var info2 = L.control();
 
 info2.onAdd = function (map) {
@@ -104,8 +102,8 @@ function done2(feature, layer) {
 }
 
 
-//all of the helper functions are defined and ready to go, so let's get some data and render it!
-//be sure to specify style and onEachFeature options when calling L.geoJson().
+//helper functions are defined -> get data and render map!
+//need to specify style and onEachFeature options when calling L.geoJson().
 var geo2;
 $.getJSON('data/world2.geojson', function(world2) {
   geo2 = L.geoJson(world2,{
@@ -142,22 +140,12 @@ legend2.addTo(map2);
 // Map 3                                                             //
 ///////////////////////////////////////////////////////////////////////
 
-
-
 var map3 = L.map('map3', {
   scrollWheelZoom: true
 }).setView( [55.924586,9.228516], 3);
 
-// instead: cleaner background
-var tile3 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-      maxZoom: 18,
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-      id: 'mapbox.light'
-    });
-
-tile3.addTo(map3);
+// clean background already loaded
+tile2.addTo(map3);
 
 function brewer3(d) {
     return d > .005  ? '#0000cc' :
@@ -182,7 +170,7 @@ function style3(feature) {
   };
 }
 
-// control that shows state info on hover
+//control that shows state info on hover
 var info3 = L.control();
 
 info3.onAdd = function(map) {
@@ -234,8 +222,8 @@ function done3(feature, layer) {
 }
 
 
-//all of the helper functions are defined and ready to go, so let's get some data and render it!
-//be sure to specify style and onEachFeature options when calling L.geoJson().
+//all of the helper functions are defined -> get data and render it!
+//need to specify style and onEachFeature options when calling L.geoJson().
 var geo3;
 $.getJSON('data/world2.geojson', function(world2) {
   geo3 = L.geoJson(world2,{
