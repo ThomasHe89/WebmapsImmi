@@ -101,7 +101,6 @@ function done2(feature, layer) {
   });
 }
 
-
 //helper functions are defined -> get data and render map!
 //need to specify style and onEachFeature options when calling L.geoJson().
 var geo2;
@@ -221,7 +220,6 @@ function done3(feature, layer) {
   });
 }
 
-
 //all of the helper functions are defined -> get data and render it!
 //need to specify style and onEachFeature options when calling L.geoJson().
 var geo3;
@@ -255,6 +253,4 @@ legend3.onAdd = function(map) {
 };
 
 legend3.addTo(map3);
-
-
 
