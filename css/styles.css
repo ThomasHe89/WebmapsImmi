@@ -2,6 +2,11 @@ body, html {
   font-family: sans-serif;
 }
 
+.jumbotron {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .jumbotron h1 {
   font-family: 'Oswald', sans-serif;
 }
@@ -9,6 +14,10 @@ body, html {
 .jumbotron h2 {
   font-family: 'Roboto', sans-serif;
   color: #e50000;
+}
+
+.jumbotron p {
+  text-align: justify;
 }
 
 .col-md-6 {

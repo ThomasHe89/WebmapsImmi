@@ -262,3 +262,252 @@ legend3.onAdd = function(map) {
 
 legend3.addTo(map3);
 
+///////////////////////////////////////////////////////////////////////
+// Pie Chart 1                                                       //
+///////////////////////////////////////////////////////////////////////
+
+var pie = new d3pie("pieChart", {
+  "header": {
+    "title": {
+      "text": "Attacks on refugee hostels",
+      "fontSize": 28,
+      "font": "open sans"
+    },
+    "subtitle": {
+      "text": "Almost none of the crimes have been solved.",
+      "color": "#999999",
+      "fontSize": 14,
+      "font": "open sans"
+    },
+    "titleSubtitlePadding": 9
+  },
+  "footer": {
+    "color": "#999999",
+    "fontSize": 10,
+    "font": "open sans",
+    "location": "bottom-left"
+  },
+  "size": {
+    "canvasWidth": 600,
+    "pieOuterRadius": "90%"
+  },
+  "data": {
+    "sortOrder": "value-asc",
+    "content": [
+      {
+        "label": "no suspect yet identified",
+        "value": 169,
+        "color": "#bd0026"
+      },
+      {
+        "label": "suspect identified",
+        "value": 41,
+        "color": "#f03b20"
+      },
+      {
+        "label": "charges filed",
+        "value": 8,
+        "color": "#fd8d3c"
+      },
+      {
+        "label": "conviction",
+        "value": 4,
+        "color": "#fecc5c"
+      }
+    ]
+  },
+  "labels": {
+    "outer": {
+      "format": "label",
+      "pieDistance": 32
+    },
+    "inner": {
+      "format": "value"
+    },
+    "mainLabel": {
+      "fontSize": 12
+    },
+    "value": {
+      "color": "#ffffff",
+      "decimalPlaces": 0
+    },
+    "value": {
+      "color": "#252525",
+      "fontSize": 12
+    },
+    "lines": {
+      "enabled": true
+    },
+    "truncation": {
+      "enabled": true
+    }
+  },
+  "effects": {
+    "pullOutSegmentOnClick": {
+      "effect": "elastic",
+      "speed": 400,
+      "size": 8
+    }
+  },
+  "misc": {
+    "gradient": {
+      "enabled": true,
+      "percentage": 100
+    }
+  }
+});
+
+///////////////////////////////////////////////////////////////////////
+// Pie Chart 2                                                       //
+///////////////////////////////////////////////////////////////////////
+
+var pie2 = new d3pie("pieChart2", {
+  "header": {
+    "title": {
+      "text": "Attacks by state",
+      "fontSize": 28,
+      "font": "open sans"
+    },
+    "subtitle": {
+      "text": "64 out of 222 attacks in Saxony alone.",
+      "color": "#999999",
+      "fontSize": 14,
+      "font": "open sans"
+    },
+    "titleSubtitlePadding": 9
+  },
+  "footer": {
+    "color": "#999999",
+    "fontSize": 10,
+    "font": "open sans",
+    "location": "bottom-left"
+  },
+  "size": {
+    "canvasWidth": 600,
+    "pieOuterRadius": "90%"
+  },
+  "data": {
+    "sortOrder": "value-desc",
+    "content": [
+      {
+        "label": "Schlewswig-Hol.",
+        "value": 7,
+        "color": "#2484c1"
+      },
+      {
+        "label": "Bremen",
+        "value": 2,
+        "color": "#0c6197"
+      },
+      {
+        "label": "Hamburg",
+        "value": 2,
+        "color": "#4daa4b"
+      },
+      {
+        "label": "Mecklenbg.-W.P.",
+        "value": 16,
+        "color": "#90c469"
+      },
+      {
+        "label": "Lower Saxony",
+        "value": 5,
+        "color": "#daca61"
+      },
+      {
+        "label": "Brandenburg",
+        "value": 13,
+        "color": "#e4a14b"
+      },
+      {
+        "label": "Berlin",
+        "value": 20,
+        "color": "#e98125"
+      },
+      {
+        "label": "North Rhine-W.",
+        "value": 21,
+        "color": "#cb2121"
+      },
+      {
+        "label": "Saxony-Anhalt.",
+        "value": 15,
+        "color": "#830909"
+      },
+      {
+        "label": "Thuringia",
+        "value": 8,
+        "color": "#923e99"
+      },
+      {
+        "label": "Rhineland-Pal.",
+        "value": 6,
+        "color": "#ae83d5"
+      },
+      {
+        "label": "Hesse",
+        "value": 10,
+        "color": "#bf273e"
+      },
+      {
+        "label": "Saxony",
+        "value": 64,
+        "color": "#ce2aeb"
+      },
+      {
+        "label": "Saarland",
+        "value": 2,
+        "color": "#bca44a"
+      },
+      {
+        "label": "Baden-Württ.",
+        "value": 17,
+        "color": "#618d1b"
+      },
+      {
+        "label": "Bavaria",
+        "value": 14,
+        "color": "#1ee67b"
+      }
+    ]
+  },
+  "labels": {
+    "outer": {
+      "format": "label",
+      "pieDistance": 32
+    },
+    "inner": {
+      "format": "value"
+    },
+    "mainLabel": {
+      "fontSize": 12
+    },
+    "value": {
+      "color": "#ffffff",
+      "decimalPlaces": 0
+    },
+    "value": {
+      "color": "#252525",
+      "fontSize": 12
+    },
+    "lines": {
+      "enabled": true
+    },
+    "truncation": {
+      "enabled": true
+    }
+  },
+  "effects": {
+    "pullOutSegmentOnClick": {
+      "effect": "elastic",
+      "speed": 400,
+      "size": 8
+    }
+  },
+  "misc": {
+    "gradient": {
+      "enabled": true,
+      "percentage": 100
+    }
+  }
+});
