@@ -73,7 +73,7 @@ var geo2;
 function mouseover2(e) {
   var layer = e.target;
   layer.setStyle({
-      weight: 5,
+      weight: 2,
       color: '#666',
       dashArray: '',
       fillOpacity: 0.7
@@ -200,7 +200,7 @@ var geo3;
 function mouseover3(e) {
   var layer = e.target;
   layer.setStyle({
-      weight: 5,
+      weight: 2,
       color: '#666',
       dashArray: '',
       fillOpacity: 0.7
@@ -430,7 +430,7 @@ var pie2 = new d3pie("pieChart2", {
         "color": "#cb2121"
       },
       {
-        "label": "Saxony-Anhalt.",
+        "label": "Saxony-Anhalt",
         "value": 15,
         "color": "#830909"
       },
