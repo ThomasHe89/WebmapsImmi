@@ -9,6 +9,49 @@ var attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenS
 // - deleted - 
 
 ///////////////////////////////////////////////////////////////////////
+// Select data for Maps 2 & 3                                                             //
+///////////////////////////////////////////////////////////////////////
+
+
+
+var str = "Your last selection was: ";
+document.getElementById("res").innerHTML = str + "<b>None</b>";
+// listeners
+$("#act2015").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2015</b>";
+  e.preventDefault();
+  console.log(j.abs15)
+});
+$("#act2014").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2014</b>";
+  e.preventDefault();
+});
+$("#act2013").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2013</b>";
+  e.preventDefault();
+});
+$("#act2012").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2012</b>";
+  e.preventDefault();
+});
+$("#act2011").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2011</b>";
+  e.preventDefault();
+});
+$("#act2010").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2010</b>";
+  e.preventDefault();
+});
+$("#act2009").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2009</b>";
+  e.preventDefault();
+});
+$("#act2008").click(function(e){
+  document.getElementById("res").innerHTML = str + "<b>2008</b>";
+  e.preventDefault();
+});
+
+///////////////////////////////////////////////////////////////////////
 // Map 2                                                             //
 ///////////////////////////////////////////////////////////////////////
 
@@ -24,7 +67,6 @@ var tile2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?ac
         'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
       id: 'mapbox.light'
     });
-
 tile2.addTo(map2);
 
 function brewer2(d) {
@@ -41,7 +83,7 @@ function brewer2(d) {
 //this function returns a style object, but dynamically sets fillColor based on the data
 function style2(feature) {
   return {
-      fillColor: brewer2(feature.properties.Field3),
+      fillColor: brewer2(feature.properties.abs15),
       weight: 2,
       opacity: 1,
       color: 'white',
@@ -60,8 +102,8 @@ info2.onAdd = function (map) {
 };
 
 info2.update = function (properties) {
-  this._div.innerHTML = '<h4>Immigration in 2014</h4>' +  (properties ?
-    '<b>' + properties.SOVEREIGNT + '</b><br />' + properties.Field3
+  this._div.innerHTML = '<h4>Immigration in 2015</h4>' +  (properties ?
+    '<b>' + properties.SOVEREIGNT + '</b><br />' + properties.abs15
     : 'Hover over a state');
 };
 
@@ -104,13 +146,13 @@ function done2(feature, layer) {
 //helper functions are defined -> get data and render map!
 //need to specify style and onEachFeature options when calling L.geoJson().
 var geo2;
-$.getJSON('data/world2.geojson', function(world2) {
-  geo2 = L.geoJson(world2,{
+$.getJSON('data/allData.geojson', function(allData) {
+  console.log("This is my ting", allData.features[0].properties.pop15);
+  geo2 = L.geoJson(allData,{
     style: style2,
     onEachFeature: done2
   }).addTo(map2);
 });
-
 var legend2 = L.control({position: 'bottomright'});
 
 legend2.onAdd = function(map) {
@@ -155,10 +197,10 @@ var tile3 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?ac
 tile3.addTo(map3);
 
 function brewer3(d) {
-    return d > .005  ? '#0000cc' :
-           d > .004  ? '#BD0026' :
-           d > .003  ? '#E31A1C' :
-           d > .002  ? '#FC4E2A' :
+    return d > .015  ? '#0000cc' :
+           d > .01   ? '#BD0026' :
+           d > .005  ? '#E31A1C' :
+           d > .0025 ? '#FC4E2A' :
            d > .001  ? '#FD8D3C' :
            d > .0005 ? '#FEB24C' :
            d > .0001 ? '#FED976' :
@@ -168,7 +210,7 @@ function brewer3(d) {
 //this function returns a style object, but dynamically sets fillColor based on the data
 function style3(feature) {
   return {
-      fillColor: brewer3(feature.properties.Field2),
+      fillColor: brewer3(feature.properties.rel15),
       weight: 2,
       opacity: 1,
       color: 'white',
@@ -187,8 +229,8 @@ info3.onAdd = function(map) {
 };
 
 info3.update = function (properties) {
-  this._div.innerHTML = '<h4>Relation of Immigration <br /> to Population Size (2014)</h4>' +  (properties ?
-    '<b>' + properties.SOVEREIGNT + '</b><br />' + (properties.Field2*100).toFixed(2) + '%'
+  this._div.innerHTML = '<h4>Relation of Immigration <br /> to Population Size (2015)</h4>' +  (properties ?
+    '<b>' + properties.SOVEREIGNT + '</b><br />' + (properties.rel15*100).toFixed(2) + '%'
     : 'Hover over a state');
 };
 
@@ -231,8 +273,8 @@ function done3(feature, layer) {
 //all of the helper functions are defined -> get data and render it!
 //need to specify style and onEachFeature options when calling L.geoJson().
 var geo3;
-$.getJSON('data/world2.geojson', function(world2) {
-  geo3 = L.geoJson(world2,{
+$.getJSON('data/allData.geojson', function(allData) {
+  geo3 = L.geoJson(allData,{
     style: style3,
     onEachFeature: done3
   }).addTo(map3);
@@ -243,7 +285,7 @@ var legend3 = L.control({position: 'bottomright'});
 legend3.onAdd = function(map) {
 
   var div = L.DomUtil.create('div', 'info legend'),
-    grades = [0, .0001, .0005, .001, .002, .003, .004, .005],
+    grades = [0, .0001, .0005, .001, .0025, .005, .01, .015],
     labels = [],
     from, to;
 
