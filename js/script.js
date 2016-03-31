@@ -13,7 +13,7 @@ var attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenS
 ///////////////////////////////////////////////////////////////////////
 
 
-
+/*
 var str = "Your last selection was: ";
 document.getElementById("res").innerHTML = str + "<b>None</b>";
 // listeners
@@ -25,6 +25,8 @@ $("#act2015").click(function(e){
 $("#act2014").click(function(e){
   document.getElementById("res").innerHTML = str + "<b>2014</b>";
   e.preventDefault();
+  var target = ["abs14", "rel14"];
+  return target;
 });
 $("#act2013").click(function(e){
   document.getElementById("res").innerHTML = str + "<b>2013</b>";
@@ -50,7 +52,7 @@ $("#act2008").click(function(e){
   document.getElementById("res").innerHTML = str + "<b>2008</b>";
   e.preventDefault();
 });
-
+*/
 ///////////////////////////////////////////////////////////////////////
 // Map 2                                                             //
 ///////////////////////////////////////////////////////////////////////
@@ -83,7 +85,7 @@ function brewer2(d) {
 //this function returns a style object, but dynamically sets fillColor based on the data
 function style2(feature) {
   return {
-      fillColor: brewer2(feature.properties.abs15),
+      fillColor: brewer2(feature.properties["abs15"]),
       weight: 2,
       opacity: 1,
       color: 'white',
@@ -95,15 +97,15 @@ function style2(feature) {
 //control that shows state info on hover
 var info2 = L.control();
 
-info2.onAdd = function (map) {
+info2.onAdd = function(map) {
   this._div = L.DomUtil.create('div', 'info');
   this.update();
   return this._div;
 };
 
-info2.update = function (properties) {
+info2.update = function(properties) {
   this._div.innerHTML = '<h4>Immigration in 2015</h4>' +  (properties ?
-    '<b>' + properties.SOVEREIGNT + '</b><br />' + properties.abs15
+    '<b>' + properties.SOVEREIGNT + '</b><br />' + properties["abs15"]
     : 'Hover over a state');
 };
 
@@ -147,7 +149,6 @@ function done2(feature, layer) {
 //need to specify style and onEachFeature options when calling L.geoJson().
 var geo2;
 $.getJSON('data/allData.geojson', function(allData) {
-  console.log("This is my ting", allData.features[0].properties.pop15);
   geo2 = L.geoJson(allData,{
     style: style2,
     onEachFeature: done2
