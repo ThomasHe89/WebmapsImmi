@@ -44,17 +44,29 @@
     <div class="jumbotron">
         <h2>Fact 1</h2>
         <p><b>Germany</b> is often considered the country that is accepting the <b>largest share of migrants</b> in Europe.<br/> But is this really true? Let's look at the <b>absolute</b> and <b>relative figures</b> of <b>asylum applicants</b>.</p> 
-        <p>This map is based on <a href="http://ec.europa.eu/eurostat/data/database">Eurostat</a> data from 2015.</p> 
+        <p>This map is based on <a href="http://ec.europa.eu/eurostat/data/database">Eurostat</a> data from 2008-2015. Simply use the buttons below the map to select a year.</p> 
     </div>
  
     <div class="row">
-      <div class="col-md-6" style="text-align: center;">
+      <div class="col-md-12 outer">
+      <div class="col-md-6">
         <h4>absolute numbers</h4>
         <div id="map2" class="map"></div>
       </div>
-      <div class="col-md-6" style="text-align: center">
+      <div class="col-md-6">
         <h4>relative numbers</h4>
       <div id="map3" class="map"></div>
+      </div>
+        <div id="yearSelect2" class="btn-group" data-toggle="buttons" style="text-align: center;">
+          <label class="btn btn-primary active"><input type="radio" name="options" id="abs15" autocomplete="off" checked> 2015</label>
+          <label class="btn btn-primary"><input type="radio" name="options" id="abs14" autocomplete="off"> 2014</label>
+          <label class="btn btn-primary"><input type="radio" name="options" id="abs13" autocomplete="off"> 2013</label>
+          <label class="btn btn-primary"><input type="radio" name="options" id="abs12" autocomplete="off"> 2012</label>
+          <label class="btn btn-primary"><input type="radio" name="options" id="abs11" autocomplete="off"> 2011</label>
+          <label class="btn btn-primary"><input type="radio" name="options" id="abs10" autocomplete="off"> 2010</label>
+          <label class="btn btn-primary"><input type="radio" name="options" id="abs09" autocomplete="off"> 2009</label>
+          <label class="btn btn-primary"><input type="radio" name="options" id="abs08" autocomplete="off"> 2008</label>
+        </div>
       </div>
     </div>
 <!--

@@ -12,47 +12,48 @@ var attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenS
 // Select data for Maps 2 & 3                                                             //
 ///////////////////////////////////////////////////////////////////////
 
+// this object is empty, but when we call getJSON(), we'll set it to the result
+var globalData;
+// assigning "abs15" saves us the if statement further down below 
+var selectedYear = "abs15"; 
+var selectedYear2 = "rel15";
 
+//listen for clicks on the dropdown
 /*
-var str = "Your last selection was: ";
-document.getElementById("res").innerHTML = str + "<b>None</b>";
-// listeners
-$("#act2015").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2015</b>";
-  e.preventDefault();
-  console.log(j.abs15)
-});
-$("#act2014").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2014</b>";
-  e.preventDefault();
-  var target = ["abs14", "rel14"];
-  return target;
-});
-$("#act2013").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2013</b>";
-  e.preventDefault();
-});
-$("#act2012").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2012</b>";
-  e.preventDefault();
-});
-$("#act2011").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2011</b>";
-  e.preventDefault();
-});
-$("#act2010").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2010</b>";
-  e.preventDefault();
-});
-$("#act2009").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2009</b>";
-  e.preventDefault();
-});
-$("#act2008").click(function(e){
-  document.getElementById("res").innerHTML = str + "<b>2008</b>";
-  e.preventDefault();
+$("ul.dropdown-menu li a").click(function(e) {
+  selectedYear = e.target.id;
+  document.getElementsByClassName("info")[0].innerHTML = '<h4>Immigration in 20'+ selectedYear.substr(3,4) + '</h4>' + 'Hover over a state';
+  //iterate over each layer (polygon) in the geojson, 
+  //call setStyle() on each, pass in 2nd argument with 
+  //whatever property the user selected
+  geo2.eachLayer(function (layer) {  
+      layer.setStyle(style(layer.feature, selectedYear)) 
+  });
+  infoHelper(selectedYear);
 });
 */
+$("#yearSelect2 :input").change(function() {
+    console.log(this.id); // points to the clicked input button
+    selectedYear = this.id;
+    selectedYear2 = "rel" + selectedYear.substr(3,4)
+  //reset info window every time user selects new year
+  //(otherwise the old number will still be up)
+  //these are basically additional info.update functions
+  document.getElementsByClassName("info2")[0].innerHTML = '<h4>Asylum applications in 20'+ selectedYear.substr(3,4) + '</h4>' + 'Hover over a state';
+  document.getElementsByClassName("info3")[0].innerHTML = '<h4>Asylum applications in 20'+ selectedYear.substr(3,4) + '</h4>' + 'Hover over a state';
+  //for each map, iterate over each layer (polygon) in the geojson, 
+  //call setStyle() on each, pass in 2nd argument with 
+  //whatever property the user selected
+  geo2.eachLayer(function (layer) {  
+      layer.setStyle(style2(layer.feature, selectedYear)) 
+  });
+  geo3.eachLayer(function (layer) {  
+      layer.setStyle(style3(layer.feature, selectedYear)) 
+  });
+  infoHelper(selectedYear);
+  infoHelper2(selectedYear2);
+});
+
 ///////////////////////////////////////////////////////////////////////
 // Map 2                                                             //
 ///////////////////////////////////////////////////////////////////////
@@ -82,10 +83,16 @@ function brewer2(d) {
                         '#FFEDA0';
 }
 
-//this function returns a style object, but dynamically sets fillColor based on the data
-function style2(feature) {
+//added a 2nd argument to style() so we can get different fill colors depending on which property we are styling
+function style2(featureData) {
+  // //not necessary because of initial assignment
+  // //first time it runs, use 'abs15'
+  // if (!selectedYear) {
+  //   selectedYear = "abs15";
+  // }
+
   return {
-      fillColor: brewer2(feature.properties["abs15"]),
+      fillColor: brewer2(featureData.properties[selectedYear]),
       weight: 2,
       opacity: 1,
       color: 'white',
@@ -94,24 +101,36 @@ function style2(feature) {
   };
 }
 
+function infoHelper(selectedYear) {
+  // //not necessary because of initial assignment
+  // //first time it runs, use 'abs15'
+  // if (!selectedYear) {
+  //   selectedYear = "abs15";
+  // }
+  return selectedYear;
+}
+
+function infoHelper2(selectedYear) {
+  return selectedYear2;
+}
+
 //control that shows state info on hover
 var info2 = L.control();
 
 info2.onAdd = function(map) {
-  this._div = L.DomUtil.create('div', 'info');
+  this._div = L.DomUtil.create('div', 'info2');
   this.update();
   return this._div;
 };
 
 info2.update = function(properties) {
-  this._div.innerHTML = '<h4>Immigration in 2015</h4>' +  (properties ?
-    '<b>' + properties.SOVEREIGNT + '</b><br />' + properties["abs15"]
+  console.log(selectedYear);
+  this._div.innerHTML = '<h4>Asylum applications in 20'+ selectedYear.substr(3,4) + '</h4>' +  (properties ?
+    '<b>' + properties.SOVEREIGNT + '</b><br />' + properties[selectedYear]
     : 'Hover over a state');
 };
 
 info2.addTo(map2);
-
-var geo2;
 
 //this function is set to run when a user mouses over any polygon
 function mouseover2(e) {
@@ -133,7 +152,10 @@ function mouseover2(e) {
 
 //this runs on mouseout
 function reset2(e) {
-  geo2.resetStyle(e.target);
+  console.log(e.target);
+  e.target.setStyle(style2(e.target.feature));
+  // sneak in a second info2.update() function
+  document.getElementsByClassName("info2")[0].innerHTML = '<h4>Asylum applications in 20'+ selectedYear.substr(3,4) + '</h4>' + 'Hover over a state';
 }
 
 //this is executed once for each feature in the data, and adds listeners
@@ -158,7 +180,7 @@ var legend2 = L.control({position: 'bottomright'});
 
 legend2.onAdd = function(map) {
 
-  var div = L.DomUtil.create('div', 'info legend'),
+  var div = L.DomUtil.create('div', 'info2 legend'),
     grades = [0, 1000, 5000, 10000, 30000, 50000, 75000, 100000],
     labels = [],
     from, to;
@@ -209,9 +231,9 @@ function brewer3(d) {
 }
 
 //this function returns a style object, but dynamically sets fillColor based on the data
-function style3(feature) {
+function style3(featureData) {
   return {
-      fillColor: brewer3(feature.properties.rel15),
+      fillColor: brewer3(featureData.properties[selectedYear2]),
       weight: 2,
       opacity: 1,
       color: 'white',
@@ -224,14 +246,14 @@ function style3(feature) {
 var info3 = L.control();
 
 info3.onAdd = function(map) {
-  this._div = L.DomUtil.create('div', 'info');
+  this._div = L.DomUtil.create('div', 'info3');
   this.update();
   return this._div;
 };
 
-info3.update = function (properties) {
-  this._div.innerHTML = '<h4>Relation of Immigration <br /> to Population Size (2015)</h4>' +  (properties ?
-    '<b>' + properties.SOVEREIGNT + '</b><br />' + (properties.rel15*100).toFixed(2) + '%'
+info3.update = function(properties) {
+  this._div.innerHTML = '<h4>Asylum applications in 20'+ selectedYear2.substr(3,4) + '</h4>' +  (properties ?
+    '<b>' + properties.SOVEREIGNT + '</b><br />' + (properties[selectedYear2]*100).toFixed(2) + '%'
     : 'Hover over a state');
 };
 
@@ -259,7 +281,8 @@ function mouseover3(e) {
 
 //this runs on mouseout
 function reset3(e) {
-  geo3.resetStyle(e.target);
+  e.target.setStyle(style3(e.target.feature));
+  document.getElementsByClassName("info3")[0].innerHTML = '<h4>Asylum applications in 20'+ selectedYear.substr(3,4) + '</h4>' + 'Hover over a state';
 }
 
 //this is executed once for each feature in the data, and adds listeners
@@ -285,7 +308,7 @@ var legend3 = L.control({position: 'bottomright'});
 
 legend3.onAdd = function(map) {
 
-  var div = L.DomUtil.create('div', 'info legend'),
+  var div = L.DomUtil.create('div', 'info3 legend'),
     grades = [0, .0001, .0005, .001, .0025, .005, .01, .015],
     labels = [],
     from, to;

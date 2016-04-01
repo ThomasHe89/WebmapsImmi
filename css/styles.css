@@ -18,15 +18,24 @@ body, html {
 
 .jumbotron p {
   text-align: justify;
+  /* background color is #eee */
 }
 
-.col-md-6 {
+.col-md-6, .col-md-12 {
   border-radius: 6px; 
   background-color: #fafafa; 
+  text-align: center;
+}
+
+.outer {
   border-style: solid; 
   border-width: 1px;
   border-color: #f1f1f1;
 }
+
+.btn-group {
+  margin-bottom: 10px;
+} 
 
 .map {
   height: 500px;
@@ -39,7 +48,7 @@ body, html {
   border-color: #f1f1f1;
 }
 
-.info {
+.info2, .info3 {
   padding: 6px 8px;
   font: 14px/16px Arial, Helvetica, sans-serif;
   background: white;
@@ -47,7 +56,7 @@ body, html {
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   border-radius: 5px;
 }
-.info h4 {
+.info2 h4, .info3 h4 {
   margin: 0 0 5px;
   color: #777;
 }
